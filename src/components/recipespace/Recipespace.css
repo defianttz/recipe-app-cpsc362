@@ -1,0 +1,9 @@
+.recipespace {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 20px;
+    justify-content: space-evenly;
+  }
+  
