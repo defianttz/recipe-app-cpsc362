@@ -1,0 +1,110 @@
+.card {
+    overflow: hidden;
+    max-width: 320px;
+    box-shadow: 0 2px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 200ms ease-in;
+    height: 100%;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  .card__image {
+    height: 12rem;
+    width: 100%;
+    object-fit: cover;
+  }
+  .card__title {
+    padding: 0.5rem;
+    font-size: 1em;
+  }
+  .card__desc {
+    padding: 1rem;
+    font-size: 12px;
+  }
+  .class__icon {
+    position: absolute;
+  
+    background: #17bebb;
+    color: #fff;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0px 5px 30px 1px;
+  }
+  
+  .card__iconcont {
+    color: black;
+    text-align: left;
+    font-weight: normal;
+    letter-spacing: 0.1em;
+    justify-items: space-between;
+    margin: 5px 0px;
+  }
+  
+  .card__timeicon {
+    margin: 0 10px;
+    color: gray;
+  }
+  .card__energyicon {
+    margin: 0 10px;
+    color: gray;
+  }
+  .card__addbtn {
+    color: #ffffff;
+    background: #3531be;
+    box-shadow: 0px 5px 30px 1px #5651e5;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: large;
+    justify-content: top;
+    left: 85%;
+    font-weight: bold;
+    margin-top: -40px;
+    max-height: 30px;
+    z-index: 3px;
+  }
+  .card__addbtn:hover {
+    background: #5651e5;
+    color: white;
+  }
+  
+  .card__btn {
+    padding: 1rem;
+    font-family: inherit;
+    font-weight: bold;
+    margin: 1rem;
+    border: 2px solid;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 200ms ease-in;
+  }
+  .card__btn:hover {
+    background: #5651e5;
+    color: white;
+  }
+  .recipespace {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0em 0 0;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin-left: 1em;
+    line-height: 1em;
+    font-size: 0.8em;
+  }
+  
