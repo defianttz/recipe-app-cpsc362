@@ -15,13 +15,13 @@ const Recipespace = (props) => {
 
   const [recipeData, setRecipeData] = useState([]);
 
- // useEffect(() => {
- //   getRecipeData();
- // }, [props.searchTerm]);
+  useEffect(() => {
+    getRecipeData();
+  }, [props.searchTerm]);
 
   //console.log("RecipeSpace:searchTerm " + props.searchTerm);
 
-  const options = {
+  const complexSearch = {
     method: 'GET',
     url: 'https://api.spoonacular.com/recipes/complexSearch',
     params: {apiKey: API_KEY, 
@@ -30,12 +30,21 @@ const Recipespace = (props) => {
              query: props.searchTerm},
   };
 
-  axios.request(options).then(function (response) {
-   //setRecipeData(response.data.results);
-    console.log(response.data.results);
-  }).catch(function (error) {
-    console.error(error);
-  });
+  function getRecipeData() {
+    if (props.searchTerm){
+      axios.request(complexSearch)
+      .then(function (response) 
+      {
+      setRecipeData(response.data.results);
+      console.log(response.data.results);
+      })
+      .catch(function (error) 
+      {
+      console.error(error);
+      });
+    }
+  }
+
 
   console.log("RecipeSpace:searchTerm " + props.searchTerm);
 
