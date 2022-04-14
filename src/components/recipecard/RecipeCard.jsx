@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import "./RecipeCard.css";
 
 const RecCard = (props) => {
-  const { image, title, id, calories } = props.recipe;
+  const { image, title, id, } = props.recipe;
   //console.log(props.recipe);
   return (
     <div className="card">
@@ -34,17 +34,17 @@ const RecCard = (props) => {
               <Tooltip title="Calories">
                 <span>
                   {" "}
-                  <BoltTwoToneIcon /> {calories} cal{" "}
+                  <BoltTwoToneIcon /> {props.recipe.nutrition.nutrients[0].amount} cal{" "}
                 </span>
               </Tooltip>
             </li>
           </ul>
         </div>
-        <p className="card__desc">
-          {" "}
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests
-        </p>
+        <li className="card__desc">
+          <span>
+            {props.recipe.summary}
+          </span>
+        </li>
       </div>
       <button className="card__btn"> View Recipe </button>
     </div>
