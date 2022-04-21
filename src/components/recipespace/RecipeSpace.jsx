@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from "react";
 import "./Recipespace.css";
 import RecipeCard from "../recipecard/RecipeCard";
+import axios from "axios";
+
 
 //import RecipeCard from "../recipecard/RecipeCard";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
@@ -9,28 +11,42 @@ import mockdata from "./mockdata.js";
 import axios from "axios";
 
 const Recipespace = (props) => {
-  const apiURL = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com';
-  const apiKey = "4l2VUZDPcFmshNG9ypRwW0gs8XFqp1rk4dajsnVnpEyMHEyIWU";
 
-  const options = {
+  const API_KEY = "API KEY HERE";
+
+  const [recipeData, setRecipeData] = useState([]);
+
+  useEffect(() => {
+    getRecipeData();
+  }, [props.searchTerm]);
+
+  //console.log("RecipeSpace:searchTerm " + props.searchTerm);
+
+  const complexSearch = {
     method: 'GET',
-    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch',
-    params: {addRecipeInformation: 'true', 
-            query: props.searchTerm,
-            addRecipeNutrition: 'true'},
-    headers: {
-      'X-RapidAPI-Host': apiURL,
-      'X-RapidAPI-Key': apiKey
-    }
+    url: 'https://api.spoonacular.com/recipes/complexSearch',
+    params: {apiKey: API_KEY, 
+             addRecipeInformation: true,
+             addRecipeNutrition: true,
+             query: props.searchTerm},
   };
-  
-  axios.request(options).then(function (response) {
-    console.log(response.data.results);
-  }).catch(function (error) {
-    console.error(error);
-  });
 
-  const [recipeData, setRecipeData] = useState(mockdata);
+  function getRecipeData() {
+    if (props.searchTerm){
+      axios.request(complexSearch)
+      .then(function (response) 
+      {
+      setRecipeData(response.data.results);
+      console.log(response.data.results);
+      })
+      .catch(function (error) 
+      {
+      console.error(error);
+      });
+    }
+  }
+
+
   console.log("RecipeSpace:searchTerm " + props.searchTerm);
 
   return (
@@ -45,3 +61,37 @@ const Recipespace = (props) => {
 };
 
 export default Recipespace;
+
+
+  /*
+  const getRecipeData = async() => {
+    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch
+                                  ?apiKey=${API_KEY}
+                                  &query=${props.searchTerm}`);
+    const data = await response.json();
+    setRecipeData(data.results);
+    console.log(data);
+    console.log(`https://api.spoonacular.com/recipes/complexSearch
+    ?apiKey=${API_KEY}
+    &addRecipeInformation=true
+    &addRecipeNutrition=true
+    &query=${props.searchTerm}`);                           
+  };
+  
+
+  function getRecipeData() {
+    fetch(`https://api.spoonacular.com/recipes/complexSearch
+                                  ?apiKey=${API_KEY}
+                                  &addRecipeInformation=true
+                                  &addRecipeNutrition=true
+                                  &query=${props.searchTerm}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setRecipeData(data);
+      console.log(data);
+    })
+    .catch(() => {
+      console.log("error");
+    });
+  }
+ */
