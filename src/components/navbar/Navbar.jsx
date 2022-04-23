@@ -105,39 +105,3 @@ const Navbar = (props) => {
 };
 
 export default Navbar;
-
-/*
-<div className="search_box">
-            <SearchIcon />
-            <input
-              placeholder="Find a Recipe"
-              type="text"
-              className="search_input"
-            />
-          </div>
- <div className="navbar">
-        <div className="container">
-          <h1>
-            <span>
-              <DiningSharpIcon className="icon" /> Recipe App{" "}
-            </span>{" "}
-          </h1>
-          <div className="search_container">
-            <form className="search_form">
-              <SearchIcon />
-              <input
-                type="text"
-                placeholder="Find a Recipe"
-                className="search"
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-
-*/
