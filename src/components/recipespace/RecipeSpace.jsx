@@ -8,7 +8,6 @@ import axios from "axios";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
 
 import mockdata from "./mockdata.js";
-import axios from "axios";
 
 const Recipespace = (props) => {
 
