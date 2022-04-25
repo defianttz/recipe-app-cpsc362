@@ -1,0 +1,57 @@
+.view__box {
+    overflow: hidden;
+    max-width: 320px;
+    box-shadow: 0 2px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 200ms ease-in;
+    height: 100%;
+    background-color: antiquewhite;
+  }
+  .view__title {
+    padding: 0.5rem;
+    font-size: 1em;
+  }  
+  .view__image {
+    height: 12rem;
+    width: 100%;
+        object-fit: contain;
+  }
+  
+  .view__ingr li{
+    
+    margin: 0em 0 0;
+    padding: 0;
+    margin-left: 10px;
+    font-size: 14px;
+    list-style-type: circle;
+    
+    
+  }
+  .view__dir li{
+    margin-left: 10px;
+    line-height: 1rem;
+    font-size: 0.8rem;
+
+  }
+
+  
+  .ingre__list{
+    list-style: none;
+    margin: 0em 0 0;
+    padding: 0;
+  
+
+  }
+  .dir_list{
+    
+    margin-left: 1em;
+    line-height: 1em;
+    font-size: 1em;
+
+  }
+  
+  
+  
+  

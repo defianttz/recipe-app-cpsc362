@@ -16,7 +16,8 @@ function App() {
     <>
       <Navbar setSearchTerm={setSearchTerm} />
       <Recipespace searchTerm={searchTerm} />
-      <Footer />
+      {/*Recipe List */}
+      {/*<Footer />*/}
     </>
   );
 }

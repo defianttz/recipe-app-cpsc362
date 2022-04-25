@@ -40,6 +40,8 @@
   
   .navbar span {
     color: #5651e5;
+    font-size: 1.5rem;
+    display: inline-flex;
   }
   
   .navbar .nav-menu {
@@ -59,6 +61,7 @@
     justify-content: center;
     align-items: center;
     color: #5651e5;
+    
   }
   
   @media screen and (max-width: 940px) {
