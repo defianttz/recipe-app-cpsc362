@@ -182,7 +182,7 @@ const RecCard = (props) => {
                     {analyzedInstructions.length > 0 ?
                       analyzedInstructions[0].steps.map((i, index) => (
                         <li key={index}>
-                          {i.step}<br />
+                          {index+1}. {i.step}<br />
                         </li>
                       )) : "Empty"}
                   </ul>
