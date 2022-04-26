@@ -11,7 +11,7 @@ import mockdata from "./mockdata.js";
 
 const Recipespace = (props) => {
 
-  const API_KEY = "3b86538a99f049e0b87b85328b391b86";
+  const API_KEY = "API KEY HERE";
 
   const [recipeData, setRecipeData] = useState([]);
 
