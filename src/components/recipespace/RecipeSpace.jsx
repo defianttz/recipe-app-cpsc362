@@ -14,12 +14,29 @@ const Recipespace = (props) => {
   const API_KEY = "API KEY HERE";
 
   const [recipeData, setRecipeData] = useState([]);
+  const [searchedRecipeList, setSearchedRecipeList] = useState([]);
+  const [savedRecipeList, setSavedRecipeData] = useState([]);
 
+  // Effect for searching
   useEffect(() => {
     getRecipeData();
   }, [props.searchTerm]);
 
-  //console.log("RecipeSpace:searchTerm " + props.searchTerm);
+  // Effect for toggling saved recipe list
+  useEffect(() => {
+    if (props.savedRecipeToggle) {
+      setRecipeData(savedRecipeList);
+    }
+    else {
+      setRecipeData(searchedRecipeList);
+    }
+  }, [props.savedRecipeToggle]);
+
+  // Effect for updating saved recipe list
+  useEffect(() => {
+    updateSavedRecipes();
+  }, [props.tempRecipe])
+
 
   const complexSearch = {
     method: 'GET',
@@ -30,12 +47,16 @@ const Recipespace = (props) => {
              query: props.searchTerm},
   };
 
+  // Function to search using the AP
+  // Sets that list as the presenting data
+  // Saves that list to the searched data list
   function getRecipeData() {
     if (props.searchTerm){
       axios.request(complexSearch)
       .then(function (response) 
       {
       setRecipeData(response.data.results);
+      setSearchedRecipeList(response.data.results);
       console.log(response.data.results);
       })
       .catch(function (error) 
@@ -45,6 +66,28 @@ const Recipespace = (props) => {
     }
   }
 
+  // This function takes the temp recipe for being saved
+  // If it's already in the list, un-save it and remove it
+  // otherwise push it to the list, and set the saved list
+  function updateSavedRecipes() {
+    console.log("inside updateSavedRecipes");
+    var tempList = savedRecipeList;
+    var change = false;
+    if (tempList){
+      for (var i=0; i < tempList.length; i++) {
+        if (tempList[i].name == props.tempRecipe.name) {
+          tempList.slice(i, 1);
+          change = true;
+          break;
+        }
+      }
+    }
+    if (!change) {
+      tempList.push(props.tempRecipe);
+    }
+    console.log(tempList);
+    setSavedRecipeData(tempList);
+  }
 
   console.log("RecipeSpace:searchTerm " + props.searchTerm);
 
