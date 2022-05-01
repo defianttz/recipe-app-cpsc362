@@ -10,12 +10,13 @@ import Recipespace from "./recipespace/RecipeSpace";
 function App() {
   // Not sure if this should be here.
   const [searchTerm, setSearchTerm] = useState(""); 
-  const [savedRecipeToggle, setSavedRecipeToggle] = useState(0);
+  const [savedRecipeToggle, setSavedRecipeToggle] = useState(false);
   
   console.log("App:searchTerm " + searchTerm);
   return (
     <>
-      <Navbar setSearchTerm={setSearchTerm} setSavedRecipeToggle={setSavedRecipeToggle}/>
+      <Navbar setSearchTerm={setSearchTerm} setSavedRecipeToggle={setSavedRecipeToggle}
+              savedRecipeToggle={savedRecipeToggle}/>
       <Recipespace searchTerm={searchTerm} savedRecipeToggle={savedRecipeToggle}/>
       {/*Recipe List */}
       {/*<Footer />*/}

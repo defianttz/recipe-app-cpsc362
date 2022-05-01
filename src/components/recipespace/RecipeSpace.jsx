@@ -11,12 +11,12 @@ import mockdata from "./mockdata.js";
  
 const Recipespace = (props) => {
 
-  const API_KEY = "APP KEY";
+  const API_KEY = "3b86538a99f049e0b87b85328b391b86";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
   const [savedRecipeList, setSavedRecipeData] = useState([]);
-  const [tempRecipe, setCopyRecipe] = useState([]);
+  const [tempRecipe, setCopyRecipe] = useState({});
   // Effect for searching
   useEffect(() => {
     getRecipeData();
@@ -35,7 +35,6 @@ const Recipespace = (props) => {
 
   // Effect for updating saved recipe list
   useEffect(() => {
-
     updateSavedRecipes();
   }, [tempRecipe])
 
@@ -72,27 +71,20 @@ const Recipespace = (props) => {
   // If it's already in the list, un-save it and remove it
   // otherwise push it to the list, and set the saved list
   function updateSavedRecipes() {
-    console.log("inside updateSavedRecipes");
+    console.log("inside updateSavedRecipes", tempRecipe);
     var tempList = savedRecipeList;
-    var change = false;
-    if (tempList){
-      for (var i=0; i < tempList.length; i++) {
-        if (tempList[i].name == tempRecipe.name) {
-          tempList.slice(i, 1);
-          change = true;
-          break;
-        }
+    //var change = false;
+    if (JSON.stringify(tempRecipe) != '{}') {
+      if (tempList.indexOf(tempRecipe) === -1) {
+        tempList.push(tempRecipe);
       }
     }
-    if (!change) {
-      tempList.push(tempRecipe);
-    }
+
+
     console.log("UpdateSaveRecipe",tempList);
     setSavedRecipeData(tempList);
   }
 
-  console.log("RecipeSpace:searchTerm " + props.searchTerm);
-  console.log("RecipeData",recipeData);
   return (
     <>
       <div className="recipespace">
