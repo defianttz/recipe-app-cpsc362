@@ -60,7 +60,7 @@ const RecCard = (props) => {
 
   const [viewRecipe, setViewRecipe] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-  const [copyRecipe, setCopyRecipe] = useState();
+  /*const [copyRecipe, setCopyRecipe] = useState();*/
   
   const showModal = () => {
     setViewRecipe(!viewRecipe);
@@ -73,9 +73,9 @@ const RecCard = (props) => {
 
   const handleCopyRecipe = () =>{
     //setViewRecipe(false);
-    copyRecipe = JSON.parse(JSON.stringify(props.recipe));
-    props.setCopyRecipe(copyRecipe);
-    console.log(copyRecipe);
+    const temp = JSON.parse(JSON.stringify(props.recipe));
+    props.setCopyRecipe(temp);
+    console.log("RecipeCard:CopyRecipe = ",temp);
   }
 
   const handleTabChange = (event, newValue) => {

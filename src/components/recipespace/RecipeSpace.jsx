@@ -8,15 +8,15 @@ import axios from "axios";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
 
 import mockdata from "./mockdata.js";
-
+ 
 const Recipespace = (props) => {
 
-  const API_KEY = "API KEY HERE";
+  const API_KEY = "APP KEY";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
   const [savedRecipeList, setSavedRecipeData] = useState([]);
-
+  const [tempRecipe, setCopyRecipe] = useState([]);
   // Effect for searching
   useEffect(() => {
     getRecipeData();
@@ -24,6 +24,7 @@ const Recipespace = (props) => {
 
   // Effect for toggling saved recipe list
   useEffect(() => {
+    console.log("Recipespace: savedRecipeToggle =",props.savedRecipeToggle);
     if (props.savedRecipeToggle) {
       setRecipeData(savedRecipeList);
     }
@@ -34,8 +35,9 @@ const Recipespace = (props) => {
 
   // Effect for updating saved recipe list
   useEffect(() => {
+
     updateSavedRecipes();
-  }, [props.tempRecipe])
+  }, [tempRecipe])
 
 
   const complexSearch = {
@@ -75,7 +77,7 @@ const Recipespace = (props) => {
     var change = false;
     if (tempList){
       for (var i=0; i < tempList.length; i++) {
-        if (tempList[i].name == props.tempRecipe.name) {
+        if (tempList[i].name == tempRecipe.name) {
           tempList.slice(i, 1);
           change = true;
           break;
@@ -83,19 +85,19 @@ const Recipespace = (props) => {
       }
     }
     if (!change) {
-      tempList.push(props.tempRecipe);
+      tempList.push(tempRecipe);
     }
-    console.log(tempList);
+    console.log("UpdateSaveRecipe",tempList);
     setSavedRecipeData(tempList);
   }
 
   console.log("RecipeSpace:searchTerm " + props.searchTerm);
-
+  console.log("RecipeData",recipeData);
   return (
     <>
       <div className="recipespace">
         {Object.keys(recipeData).map((recipeId) => (
-          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} />
+          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} />
         ))}
       </div>
     </>
