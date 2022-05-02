@@ -4,6 +4,34 @@
     flex-wrap: wrap;
     padding: 30px;
     gap: 20px;
+    padding-top: 110px;
     justify-content: space-evenly;
   }
+  .add_recipe_box{
+    width: 60px;
+    height: 60px;
+    background: #5651e5;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    border-radius: 50%;
+    color: white;
+    transition: 0.3s;
+    outline: none;
+    cursor: pointer;
+    z-index: 99;
+  }
+.add_recipe_icon{
+  background: #5651e5;
+  bottom: 0rem;
+  right: 0rem;
+}
+.add_recipe_icon:hover {
+  transform: rotate(45deg) scale(1.1);
+  background: #5651e5;
+}
   

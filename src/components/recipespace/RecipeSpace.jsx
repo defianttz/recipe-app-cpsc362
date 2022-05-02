@@ -2,16 +2,21 @@ import { React, useState, useEffect } from "react";
 import "./Recipespace.css";
 import RecipeCard from "../recipecard/RecipeCard";
 import axios from "axios";
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 //import RecipeCard from "../recipecard/RecipeCard";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
 
-import mockdata from "./mockdata.js";
+//import mockdata from "./mockdata.js";
 
 const Recipespace = (props) => {
 
-  const API_KEY = "API KEY HERE";
+  const API_KEY = "1d5576d6a19744bfb3c6fdf5592992ec";
 
   const [recipeData, setRecipeData] = useState([]);
 
@@ -55,6 +60,11 @@ const Recipespace = (props) => {
           <RecipeCard key={recipeId} recipe={recipeData[recipeId]} />
         ))}
       </div>
+      <Box className="add_recipe_box">
+        <Fab color="primary" aria-label="add" className="add_recipe_icon">
+          <AddIcon />
+        </Fab>
+      </Box>
     </>
   );
 };

@@ -98,7 +98,12 @@ const Navbar = (props) => {
               //onKeyPress={initiateSearch}
             />
           </Search>
-        </div>
+          <div className="nav-links">
+            <a href="/">Home</a>
+            <a href="/reipelist">My Recipes</a>
+          </div>
+                    
+          </div>
       </div>
     </>
   );
