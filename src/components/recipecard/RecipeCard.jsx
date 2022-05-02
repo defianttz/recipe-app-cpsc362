@@ -76,6 +76,9 @@ const RecCard = (props) => {
     const temp = JSON.parse(JSON.stringify(props.recipe));
     props.setCopyRecipe(temp);
     console.log("RecipeCard:CopyRecipe = ",temp);
+
+    // save recipe
+    localStorage.setItem(props.recipe.id, JSON.stringify(props.recipe));
   }
 
   const handleTabChange = (event, newValue) => {
