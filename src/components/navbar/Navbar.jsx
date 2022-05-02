@@ -106,12 +106,12 @@ const Navbar = (props) => {
               //onKeyPress={initiateSearch}
             />
           </Search>
-          <button onClick={handleRecipeToggle}>
-          My Recipes
-          </button>
-          {/*<h5><span> My Recipes <MenuBookTwoToneIcon/></span></h5>*/}
-
-        </div>
+          <div className="nav-links">
+            <a href="/">Home</a>
+            <a href="/reipelist">My Recipes</a>
+          </div>
+                    
+          </div>
       </div>
     </>
   );
