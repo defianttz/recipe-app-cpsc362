@@ -8,18 +8,37 @@ import axios from "axios";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
 
 import mockdata from "./mockdata.js";
-
+ 
 const Recipespace = (props) => {
 
-  const API_KEY = "API KEY HERE";
+  const API_KEY = "APP KEY";
 
   const [recipeData, setRecipeData] = useState([]);
-
+  const [searchedRecipeList, setSearchedRecipeList] = useState([]);
+  const [savedRecipeList, setSavedRecipeData] = useState([]);
+  const [tempRecipe, setCopyRecipe] = useState([]);
+  // Effect for searching
   useEffect(() => {
     getRecipeData();
   }, [props.searchTerm]);
 
-  //console.log("RecipeSpace:searchTerm " + props.searchTerm);
+  // Effect for toggling saved recipe list
+  useEffect(() => {
+    console.log("Recipespace: savedRecipeToggle =",props.savedRecipeToggle);
+    if (props.savedRecipeToggle) {
+      setRecipeData(savedRecipeList);
+    }
+    else {
+      setRecipeData(searchedRecipeList);
+    }
+  }, [props.savedRecipeToggle]);
+
+  // Effect for updating saved recipe list
+  useEffect(() => {
+
+    updateSavedRecipes();
+  }, [tempRecipe])
+
 
   const complexSearch = {
     method: 'GET',
@@ -30,12 +49,16 @@ const Recipespace = (props) => {
              query: props.searchTerm},
   };
 
+  // Function to search using the AP
+  // Sets that list as the presenting data
+  // Saves that list to the searched data list
   function getRecipeData() {
     if (props.searchTerm){
       axios.request(complexSearch)
       .then(function (response) 
       {
       setRecipeData(response.data.results);
+      setSearchedRecipeList(response.data.results);
       console.log(response.data.results);
       })
       .catch(function (error) 
@@ -45,14 +68,36 @@ const Recipespace = (props) => {
     }
   }
 
+  // This function takes the temp recipe for being saved
+  // If it's already in the list, un-save it and remove it
+  // otherwise push it to the list, and set the saved list
+  function updateSavedRecipes() {
+    console.log("inside updateSavedRecipes");
+    var tempList = savedRecipeList;
+    var change = false;
+    if (tempList){
+      for (var i=0; i < tempList.length; i++) {
+        if (tempList[i].name == tempRecipe.name) {
+          tempList.slice(i, 1);
+          change = true;
+          break;
+        }
+      }
+    }
+    if (!change) {
+      tempList.push(tempRecipe);
+    }
+    console.log("UpdateSaveRecipe",tempList);
+    setSavedRecipeData(tempList);
+  }
 
   console.log("RecipeSpace:searchTerm " + props.searchTerm);
-
+  console.log("RecipeData",recipeData);
   return (
     <>
       <div className="recipespace">
         {Object.keys(recipeData).map((recipeId) => (
-          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} />
+          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} />
         ))}
       </div>
     </>
