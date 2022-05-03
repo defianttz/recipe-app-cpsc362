@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
-  const [toggle, setToggle] = useState(0);
+  const [toggle, setToggle] = useState(true);
 
   const initiateSearch = (e) => {
     if (e.key === "Enter") {
@@ -79,8 +79,8 @@ const Navbar = (props) => {
   }, [query]);
 
   const handleRecipeToggle = () =>{
-    console.log("Navbar:RecipeToggle pressed");
-    props.setSavedRecipeToggle(!toggle);
+    console.log("Navbar:RecipeToggle pressed", props.savedRecipeToggle);
+    props.setSavedRecipeToggle(!props.savedRecipeToggle);
 
   }
 
@@ -106,12 +106,21 @@ const Navbar = (props) => {
               //onKeyPress={initiateSearch}
             />
           </Search>
+<<<<<<< HEAD
           <div className="nav-links">
             <a href="/">Home</a>
             <a href="/reipelist">My Recipes</a>
           </div>
                     
           </div>
+=======
+          <button onClick={(handleRecipeToggle)}>
+          My Recipes
+          </button>
+          {/*<h5><span> My Recipes <MenuBookTwoToneIcon/></span></h5>*/}
+
+        </div>
+>>>>>>> c7752f5b819ab803f04c926505e26264de78fff5
       </div>
     </>
   );

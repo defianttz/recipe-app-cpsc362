@@ -73,7 +73,7 @@ const RecCard = (props) => {
 
   const handleCopyRecipe = () =>{
     //setViewRecipe(false);
-    const temp = JSON.parse(JSON.stringify(props.recipe));
+    const temp = props.recipe;
     props.setCopyRecipe(temp);
     console.log("RecipeCard:CopyRecipe = ",temp);
 
