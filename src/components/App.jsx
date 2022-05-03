@@ -6,6 +6,22 @@ import Footer from "./footer/Footer";
 //import RecipeInfoCard from "./RecipeInfoCard";
 import Navbar from "./navbar/Navbar";
 import Recipespace from "./recipespace/RecipeSpace";
+import {createTheme,ThemeProvider } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#5651e5',
+      darker: '#3531be',
+    },
+    neutral: {
+      main: '#808080',
+      contrastText: '#fff',
+    },
+  },
+});
+
 
 function App() {
   // Not sure if this should be here.
@@ -13,12 +29,12 @@ function App() {
   
   console.log("App:searchTerm " + searchTerm);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Navbar setSearchTerm={setSearchTerm} />
       <Recipespace searchTerm={searchTerm} />
       {/*Recipe List */}
       {/*<Footer />*/}
-    </>
+    </ThemeProvider>
   );
 }
 
