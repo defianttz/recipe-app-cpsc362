@@ -73,16 +73,22 @@ const Recipespace = (props) => {
   function updateSavedRecipes() {
     console.log("inside updateSavedRecipes", tempRecipe);
     var tempList = savedRecipeList;
-    //var change = false;
+    const oldList = JSON.parse(window.localStorage.getItem("savedList"));
+    //console.log("oldList", oldList);
+
+    if (oldList != null) {
+      tempList = oldList;
+    }
+
     if (JSON.stringify(tempRecipe) != '{}') {
       if (tempList.indexOf(tempRecipe) === -1) {
         tempList.push(tempRecipe);
       }
     }
 
-
     console.log("UpdateSaveRecipe",tempList);
     setSavedRecipeData(tempList);
+    localStorage.setItem("savedList", JSON.stringify(tempList));
   }
 
   return (
