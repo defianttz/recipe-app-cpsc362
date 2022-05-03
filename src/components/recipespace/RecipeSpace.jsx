@@ -86,10 +86,13 @@ const Recipespace = (props) => {
       }
     }
 
+    tempList.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
     console.log("UpdateSaveRecipe",tempList);
     setSavedRecipeData(tempList);
     localStorage.setItem("savedList", JSON.stringify(tempList));
   }
+
+
 
   return (
     <>
