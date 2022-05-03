@@ -75,7 +75,7 @@ const RecCard = (props) => {
     //setViewRecipe(false);
     const temp = props.recipe;
     props.setCopyRecipe(temp);
-    console.log("RecipeCard:CopyRecipe = ",temp);
+    //console.log("RecipeCard:CopyRecipe = ",temp);
   }
 
   const handleTabChange = (event, newValue) => {

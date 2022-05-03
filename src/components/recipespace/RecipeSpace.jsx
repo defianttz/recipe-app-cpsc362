@@ -71,10 +71,9 @@ const Recipespace = (props) => {
   // If it's already in the list, un-save it and remove it
   // otherwise push it to the list, and set the saved list
   function updateSavedRecipes() {
-    console.log("inside updateSavedRecipes", tempRecipe);
+    //console.log("inside updateSavedRecipes", tempRecipe);
     var tempList = savedRecipeList;
     const oldList = JSON.parse(window.localStorage.getItem("savedList"));
-    //console.log("oldList", oldList);
 
     if (oldList != null) {
       tempList = oldList;
@@ -86,7 +85,8 @@ const Recipespace = (props) => {
       }
     }
 
-    tempList.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+    tempList.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+    
     console.log("UpdateSaveRecipe",tempList);
     setSavedRecipeData(tempList);
     localStorage.setItem("savedList", JSON.stringify(tempList));
@@ -106,37 +106,3 @@ const Recipespace = (props) => {
 };
 
 export default Recipespace;
-
-
-  /*
-  const getRecipeData = async() => {
-    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch
-                                  ?apiKey=${API_KEY}
-                                  &query=${props.searchTerm}`);
-    const data = await response.json();
-    setRecipeData(data.results);
-    console.log(data);
-    console.log(`https://api.spoonacular.com/recipes/complexSearch
-    ?apiKey=${API_KEY}
-    &addRecipeInformation=true
-    &addRecipeNutrition=true
-    &query=${props.searchTerm}`);                           
-  };
-  
-
-  function getRecipeData() {
-    fetch(`https://api.spoonacular.com/recipes/complexSearch
-                                  ?apiKey=${API_KEY}
-                                  &addRecipeInformation=true
-                                  &addRecipeNutrition=true
-                                  &query=${props.searchTerm}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setRecipeData(data);
-      console.log(data);
-    })
-    .catch(() => {
-      console.log("error");
-    });
-  }
- */
