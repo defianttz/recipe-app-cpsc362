@@ -114,11 +114,6 @@ const RecCard = (props) => {
             </li>
           </ul>
         </div>
-        <li className="card__desc">
-          <span>
-            {/*props.recipe.summary*/}
-          </span>
-        </li>
       </div>
       <button className="card__btn"
         onClick={() => showModal()}> View Recipe

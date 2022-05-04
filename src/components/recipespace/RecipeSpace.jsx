@@ -2,21 +2,26 @@ import { React, useState, useEffect } from "react";
 import "./Recipespace.css";
 import RecipeCard from "../recipecard/RecipeCard";
 import axios from "axios";
-
-
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Dialog from "@mui/material/Dialog";
+import AddRecipeForm from "../addrecipe/AddRecipeForm";
 //import RecipeCard from "../recipecard/RecipeCard";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
-
-import mockdata from "./mockdata.js";
  
 const Recipespace = (props) => {
 
-  const API_KEY = "3b86538a99f049e0b87b85328b391b86";
+  const API_KEY = "1d5576d6a19744bfb3c6fdf5592992ec";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
   const [savedRecipeList, setSavedRecipeData] = useState([]);
   const [tempRecipe, setCopyRecipe] = useState({});
+  const [open, setOpen] = useState(false);
+
   // Effect for searching
   useEffect(() => {
     getRecipeData();
@@ -39,6 +44,9 @@ const Recipespace = (props) => {
   }, [tempRecipe])
 
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
   const complexSearch = {
     method: 'GET',
     url: 'https://api.spoonacular.com/recipes/complexSearch',
@@ -101,6 +109,19 @@ const Recipespace = (props) => {
           <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} />
         ))}
       </div>
+      
+      {/*Pressing Add will display an Add Recipe Form*/ }
+      <Box className="add_recipe_box">
+        <Fab 
+             color="primary"      
+             aria-label="add" 
+             className="add_recipe_icon"
+             onClick={handleOpen} 
+        >
+          <AddIcon />
+        </Fab>
+      </Box>        
+      <AddRecipeForm open={open} handleClose={handleClose} setCopyRecipe={setCopyRecipe}/>      
     </>
   );
 };
