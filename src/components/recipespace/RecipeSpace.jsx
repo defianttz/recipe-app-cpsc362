@@ -77,10 +77,8 @@ const Recipespace = (props) => {
         >
           <AddIcon />
         </Fab>
-      </Box>
-        
-      <AddRecipeForm open={open} handleClose={handleClose}/>
-      
+      </Box>        
+      <AddRecipeForm open={open} handleClose={handleClose}/>      
     </>
   );
 };

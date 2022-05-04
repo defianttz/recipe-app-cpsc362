@@ -13,60 +13,127 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import CloseIcon from "@mui/icons-material/Close";
 import "./AddRecipe.css";
-
+import mockdingredients from "./mockingredients.js";
+import mockdinstructions from "./mockinstructions.js";
 const AddRecipeForm = (props) => {
-    const [open, setOpen] = React.useState(false);
-    //const handleOpen = () => setOpen(true);
-    //const handleClose = () => setOpen(false);
-    
 
-    const [recipe, setRecipe] = React.useState({
-          id: "",
-          name: "",
-          ingredients: [],
-          directions: [],
-          cooktime: "",
-          calories:"",
-          servings: "",
-          notes: []
-          });
+  const [nutrientz, setNutrients] = React.useState(
+    {
+      name: "Calories",
+      amount: "",
+      unit: "kcal"    
+  });
+
+  const [nutritionz, setNutrition] = React.useState({
+    ingredients:[],
+    nutrients:[]
+  });
+
+  const [recipe, setRecipe] = React.useState({
+    id: "999",                  
+    title: "", 
+    readyInMinutes: "",
+    image: "",
+    servings: "",
+    notes: [],    // onChange
+    nutrition: [], // handleSave
+    analyzedInstructions: [], // handleSave 
+  }); 
+  /*
+  const [recipe, setRecipe] = React.useState({
+    id: "999",                  
+    title: "", 
+    readyInMinutes: "",
+    image: "",
+    servings: "",
+    notes: [],    
+    nutrition:{
+      ingredients: mockdingredients,
+      nutrients:[{
+        name: "Calories",
+        amount: "",
+        unit: "kcal"
+      }],     
+    },
+    analyzedInstructions:mockdinstructions,
+   
+  });  */
 
 const [temprecipe, setTempRecipe] = React.useState({
+            id: "",                   // recipe.id
+            title: "",                // recipe.title
+            ingredients: [],          // recipe.nutrition.ingredients
+            analyzedInstructions: [], // recipe.analyzedInstructions
+            readyInMinutes: "",       // recipe.readyInMinutes
+            image: "",                // recipe.image
+            nutrition:[],             // recipe.nutrition.nutrients[0].amount
+            servings: "",             // recipe.servings
+            notes: []                 // recipe.notes <--- New
+            });
+/* 
+const [recipe, setRecipe] = React.useState({
             id: "",
             name: "",
             ingredients: [],
             directions: [],
             cooktime: "",
+            image: "",
             calories:"",
             servings: "",
             notes: []
-            });
+            });  */    
+
+function handleSave() {
+    
+  //setNutrition({...nutritionz, ingredients: mockdingredients});
+  //setNutrition({...nutritionz, nutrients: nutrientz});
+
+  nutritionz.ingredients = mockdingredients;
+  nutritionz.nutrients = nutrientz;
+
+  console.log(nutritionz);
   
-          
+  recipe.nutrition = nutritionz;
+  setRecipe({...recipe, nutrition: nutritionz});
+
+  setRecipe({ ...recipe, analyzedInstructions : mockdinstructions});
+    
+  //analzInstructions.steps = recipe.directions;
+    //nutrients.amount = recipe.calories;
+    //setRecipe({...recipe.analyzedInstructions,analyzedInstructions: mockdinstructions},
+      //        {...recipe.nutrition.ingredients,ingredients: mockdingredients});
+              
+    props.handleClose();
+
+    console.log(recipe);
+    //props.handle
+  }          
+    
   const handleDirectionChange = (e) => {
     //recipe.ingredients = e.target.value;
 
     //setRecipe((recipe.directions = e.target.value));
-    setRecipe({ ...recipe, directions: e.target.value });
+    //setRecipe({ ...recipe, directions: e.target.value });
     //console.log("Description: " + recipe.directions);
   };
   const handleIngredientChange = (e) => {
     //recipe.ingredients = e.target.value;
-    setRecipe({ ...recipe, ingredients: e.target.value });
+    //setRecipe({ ...recipe, ingredients: e.target.value });
     //setRecipe((recipe.ingredients = e.target.value));
     //console.log("ingredients: " + recipe.ingredients);
   };
   const handleNameChange = (e) => {
     //setRecipe((recipe.name = e.target.value));
-    setRecipe({ ...recipe, name: e.target.value });
+    setRecipe({ ...recipe, title: e.target.value });
     //console.log("Recipe name: " + e.target.value);
   };
+  const handleCalorieChange = (e) => {
+    
+    setNutrients({ ...nutrientz, amount: e.target.value});
+    
+  };
 
-  const handleSave = () => {
-    props.handleClose();
-    //props.handle
-
-  }
+ 
 return(
   <div> 
   <Dialog
@@ -98,8 +165,7 @@ return(
               display: "flex",
               flexDirection: "column",
               m: "6",
-              '& .MuiTextField-root': { minWidth: '25ch',
-
+              '& .MuiTextField-root': { minWidth: '40ch',
                                         p: "12px 16px"},
               width:"auto",
               minHeight: "300px",
@@ -111,8 +177,7 @@ return(
         required
         id="outlined-required"
         label="Recipe Name"
-        value={recipe.name}
-        size="medium"
+        value={recipe.title}
         onChange={handleNameChange}
                 //onChange={(e) => setRecipe({ ...recipe, name: e.target.value })}
       />
@@ -120,16 +185,18 @@ return(
       <TextField
         id="outlined"
         label="Cooking Time (mins)"
-        value={recipe.cooktime}
-        onChange={(e) => setRecipe({ ...recipe, cooktime: e.target.value })}
+        value={recipe.readyInMinutes}
+        onChange={(e) => setRecipe({ ...recipe, readyInMinutes: e.target.value })}
       />
       <TextField
         id="outlined"
         label="Calories"
-        value={recipe.calories}
-        onChange={(e) => setRecipe({ ...recipe, calories: e.target.value })}
+        value={nutrientz.amount}
+        onChange={handleCalorieChange}
+        //onChange={(e) => setRecipe({ ...recipe, nutrition:{
+        //    ...recipe.nutrition.nutrients, amount: e.target.value}})}
       />
-
+    
       <TextField
         id="outlined"
         label="Servings"
@@ -138,28 +205,25 @@ return(
       /> 
       
       <div>
-      <TextField
-        
-        id="standard-multiline-static"
+      <TextField        
+        id="standard-multiline-uncontrolled"
         label="Ingredients"
         multiline
+        disabled 
         maxRows={4}
-        value={recipe.ingredients}
-        onChange={(e) =>
-                  setRecipe({ ...recipe, ingredients: e.target.value })
-        }
+        //value={recipe.ingredients}
+        //onChange={(e) => setRecipe({ ...recipe, ingredients: e.target.value })}
         />
         </div>
        <TextField
         //id="outlined-multiline-flexible"
-        id="standard-multiline-static"
+        id="standard-multiline-uncontrolled"
         label="Directions"
+        disabled 
         multiline
         maxRows={4}
-        value={recipe.directions}
-        onChange={(e) =>
-                 setRecipe({ ...recipe, directions: e.target.value })
-                }
+        //value={recipe.directions}
+        //onChange={(e) => setRecipe({ ...recipe, directions: e.target.value }) }
         />
 
         <TextField
@@ -172,9 +236,7 @@ return(
         onChange={(e) =>
                   setRecipe({ ...recipe, notes: e.target.value })
         }
-        />   
-      
-      
+        /> 
     
       </Box>   
     </DialogContent>        
