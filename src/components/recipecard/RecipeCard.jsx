@@ -23,6 +23,8 @@ import "../recipeview/recipeview.css";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
+
+
   return (
     <div
       role="tabpanel"
@@ -56,41 +58,28 @@ const RecCard = (props) => {
   const { image, title, id, analyzedInstructions } = props.recipe;
   const ingredients = props.recipe.nutrition.ingredients;
 
-  const [viewRecipe, setviewRecipe] = useState(false);
-  const [activeTab, setactiveTab] = useState(0);
-  const [copyRecipe, setcopyRecipe] = useState({
-    rid: "",
-    name: "",
-    img: "",
-    ingredients: [],
-    analyzedInstructions: []
-});
+  const [viewRecipe, setViewRecipe] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  /*const [copyRecipe, setCopyRecipe] = useState();*/
   
   const showModal = () => {
-    setviewRecipe(!viewRecipe);
+    setViewRecipe(!viewRecipe);
   }
 
   const handleClose = () => {
-    setviewRecipe(false);
+    setViewRecipe(false);
   }
 
+
   const handleCopyRecipe = () =>{
-    setviewRecipe(false);
-    const tempRecipe = {
-      rid: id,
-    name: title,
-    img: image,
-    ingredients: ingredients,
-    analyzedInstructions: analyzedInstructions
-    }
-    //setcopyRecipe(tempRecipe);
-
-    console.log("Adding Recipe: ",tempRecipe);
-
+    //setViewRecipe(false);
+    const temp = props.recipe;
+    props.setCopyRecipe(temp);
+    //console.log("RecipeCard:CopyRecipe = ",temp);
   }
 
   const handleTabChange = (event, newValue) => {
-    setactiveTab(newValue);
+    setActiveTab(newValue);
   }
 
   //console.log(props.recipe);
@@ -125,11 +114,6 @@ const RecCard = (props) => {
             </li>
           </ul>
         </div>
-        <li className="card__desc">
-          <span>
-            {/*props.recipe.summary*/}
-          </span>
-        </li>
       </div>
       <button className="card__btn"
         onClick={() => showModal()}> View Recipe
@@ -182,7 +166,7 @@ const RecCard = (props) => {
                     {analyzedInstructions.length > 0 ?
                       analyzedInstructions[0].steps.map((i, index) => (
                         <li key={index}>
-                          {i.step}<br />
+                          {index+1}. {i.step}<br />
                         </li>
                       )) : "Empty"}
                   </ul>

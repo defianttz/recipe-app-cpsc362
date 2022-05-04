@@ -33,7 +33,7 @@ const AddRecipeForm = (props) => {
     id: "999",                  
     title: "", 
     readyInMinutes: "",
-    image: "",
+    image: "https://images.unsplash.com/photo-1531928351158-2f736078e0a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZW1wdHklMjBwbGF0ZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
     servings: "",
     notes: [],    // onChange
     nutrition: [], // handleSave
@@ -70,18 +70,6 @@ const [temprecipe, setTempRecipe] = React.useState({
             servings: "",             // recipe.servings
             notes: []                 // recipe.notes <--- New
             });
-/* 
-const [recipe, setRecipe] = React.useState({
-            id: "",
-            name: "",
-            ingredients: [],
-            directions: [],
-            cooktime: "",
-            image: "",
-            calories:"",
-            servings: "",
-            notes: []
-            });  */    
 
 function handleSave() {
     
@@ -89,23 +77,23 @@ function handleSave() {
   //setNutrition({...nutritionz, nutrients: nutrientz});
 
   nutritionz.ingredients = mockdingredients;
-  nutritionz.nutrients = nutrientz;
-
-  console.log(nutritionz);
+  nutritionz.nutrients = [
+                          nutrientz,
+                          {
+                              "name": "Fat",
+                              "amount": 0,
+                              "unit": "g",
+                              "percentOfDailyNeeds": 0
+                          },  
+                        ]
+  
+  //console.log(nutritionz);
   
   recipe.nutrition = nutritionz;
-  setRecipe({...recipe, nutrition: nutritionz});
-
-  setRecipe({ ...recipe, analyzedInstructions : mockdinstructions});
-    
-  //analzInstructions.steps = recipe.directions;
-    //nutrients.amount = recipe.calories;
-    //setRecipe({...recipe.analyzedInstructions,analyzedInstructions: mockdinstructions},
-      //        {...recipe.nutrition.ingredients,ingredients: mockdingredients});
-              
+  recipe.analyzedInstructions =mockdinstructions;  
+       
     props.handleClose();
-
-    console.log(recipe);
+    props.setCopyRecipe(recipe);
     //props.handle
   }          
     

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import DiningSharpIcon from "@mui/icons-material/DiningSharp";
+import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -54,6 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
+  const [toggle, setToggle] = useState(true);
 
   const initiateSearch = (e) => {
     if (e.key === "Enter") {
@@ -75,6 +77,12 @@ const Navbar = (props) => {
     //props.getSearchKey(query);
     //console.log("The use effect ran " + query);
   }, [query]);
+
+  const handleRecipeToggle = () =>{
+    console.log("Navbar:RecipeToggle pressed", props.savedRecipeToggle);
+    props.setSavedRecipeToggle(!props.savedRecipeToggle);
+
+  }
 
   return (
     <>
@@ -98,12 +106,12 @@ const Navbar = (props) => {
               //onKeyPress={initiateSearch}
             />
           </Search>
-          <div className="nav-links">
-            <a href="/">Home</a>
-            <a href="/reipelist">My Recipes</a>
-          </div>
-                    
-          </div>
+          <button onClick={(handleRecipeToggle)}>
+          My Recipes
+          </button>
+          {/*<h5><span> My Recipes <MenuBookTwoToneIcon/></span></h5>*/}
+
+        </div>
       </div>
     </>
   );
