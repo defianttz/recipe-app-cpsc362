@@ -33,7 +33,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <Navbar setSearchTerm={setSearchTerm} setSavedRecipeToggle={setSavedRecipeToggle}
               savedRecipeToggle={savedRecipeToggle}/>
-      <Recipespace searchTerm={searchTerm} savedRecipeToggle={savedRecipeToggle}/>
+      <Recipespace searchTerm={searchTerm} setSavedRecipeToggle = {setSavedRecipeToggle} 
+                   savedRecipeToggle={savedRecipeToggle}/>
       
       {/*<Footer />*/}
     </ThemeProvider>

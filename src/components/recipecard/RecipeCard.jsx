@@ -60,6 +60,7 @@ const RecCard = (props) => {
 
   const [viewRecipe, setViewRecipe] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  //const [addsub, toggleAddSub] = useState("card_addbtn");
   /*const [copyRecipe, setCopyRecipe] = useState();*/
   
   const showModal = () => {
@@ -75,6 +76,7 @@ const RecCard = (props) => {
     //setViewRecipe(false);
     const temp = props.recipe;
     props.setCopyRecipe(temp);
+    //props.updateSavedRecipes(temp);
     //console.log("RecipeCard:CopyRecipe = ",temp);
   }
 
@@ -89,7 +91,7 @@ const RecCard = (props) => {
       <div className="card__body">
         <img src={image} alt="" className="card__image" />
         <Tooltip title="Add Recipe">
-          <IconButton className="card__addbtn" onClick={handleCopyRecipe}>
+          <IconButton className="card_addbtn" onClick={handleCopyRecipe}>
             <AddIcon />
           </IconButton>
         </Tooltip>

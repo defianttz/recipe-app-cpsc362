@@ -14,7 +14,7 @@ import AddRecipeForm from "../addrecipe/AddRecipeForm";
  
 const Recipespace = (props) => {
 
-  const API_KEY = "APP KEY";
+  const API_KEY = "API_KEY_HERE";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
@@ -64,14 +64,20 @@ const Recipespace = (props) => {
       axios.request(complexSearch)
       .then(function (response) 
       {
-      setRecipeData(response.data.results);
       setSearchedRecipeList(response.data.results);
+      if(props.savedRecipeToggle != false){
+        props.setSavedRecipeToggle(false);
+      }
+      else{
+        setRecipeData(response.data.results);
+      }
       console.log(response.data.results);
       })
       .catch(function (error) 
       {
       console.error(error);
       });
+
     }
   }
 
@@ -79,26 +85,36 @@ const Recipespace = (props) => {
   // If it's already in the list, un-save it and remove it
   // otherwise push it to the list, and set the saved list
   function updateSavedRecipes() {
-    //console.log("inside updateSavedRecipes", tempRecipe);
-    var tempList = savedRecipeList;
-    const oldList = JSON.parse(window.localStorage.getItem("savedList"));
-
-    if (oldList != null) {
-      tempList = oldList;
-    }
-
-    if (JSON.stringify(tempRecipe) != '{}') {
-      if (tempList.indexOf(tempRecipe) === -1) {
-        tempList.push(tempRecipe);
+    if (JSON.stringify(tempRecipe) != '{}'){
+        var tempList = savedRecipeList;
+        const oldList = JSON.parse(window.localStorage.getItem("savedList"));
+  
+        if (oldList != null) {
+          tempList = oldList;
+        }
+  
+        console.log(tempList.findIndex(f => f.title === tempRecipe.title));
+  
+        //if (JSON.stringify(tempRecipe) != '{}') {
+          if (tempList.findIndex(f => f.title === tempRecipe.title) === -1) {
+            tempList.push(tempRecipe);
+          }
+          else {
+            tempList.splice(tempList.findIndex(f => f.title === tempRecipe.title), 1);
+            setRecipeData(tempList);
+          }
+        //}
+  
+  
+  
+        tempList.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+      
+        setSavedRecipeData(tempList);
+        localStorage.setItem("savedList", JSON.stringify(tempList));
+        setCopyRecipe({});
       }
     }
 
-    tempList.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
-    
-    console.log("UpdateSaveRecipe",tempList);
-    setSavedRecipeData(tempList);
-    localStorage.setItem("savedList", JSON.stringify(tempList));
-  }
 
 
 
