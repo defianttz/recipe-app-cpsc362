@@ -7,21 +7,21 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
-
+import Dialog from "@mui/material/Dialog";
+import AddRecipeForm from "../addrecipe/AddRecipeForm";
 //import RecipeCard from "../recipecard/RecipeCard";
 //import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
-
-//import mockdata from "./mockdata.js";
-
+ 
 const Recipespace = (props) => {
 
-  const API_KEY = "3b86538a99f049e0b87b85328b391b86";
+  const API_KEY = "APP KEY HERE";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
   const [savedRecipeList, setSavedRecipeData] = useState([]);
   const [tempRecipe, setCopyRecipe] = useState({});
+  const [open, setOpen] = useState(false);
+
   // Effect for searching
   useEffect(() => {
     getRecipeData();
@@ -44,6 +44,9 @@ const Recipespace = (props) => {
   }, [tempRecipe])
 
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
   const complexSearch = {
     method: 'GET',
     url: 'https://api.spoonacular.com/recipes/complexSearch',
@@ -61,14 +64,20 @@ const Recipespace = (props) => {
       axios.request(complexSearch)
       .then(function (response) 
       {
-      setRecipeData(response.data.results);
       setSearchedRecipeList(response.data.results);
+      if(props.savedRecipeToggle != false){
+        props.setSavedRecipeToggle(false);
+      }
+      else{
+        setRecipeData(response.data.results);
+      }
       console.log(response.data.results);
       })
       .catch(function (error) 
       {
       console.error(error);
       });
+
     }
   }
 
@@ -76,68 +85,61 @@ const Recipespace = (props) => {
   // If it's already in the list, un-save it and remove it
   // otherwise push it to the list, and set the saved list
   function updateSavedRecipes() {
-    console.log("inside updateSavedRecipes", tempRecipe);
-    var tempList = savedRecipeList;
-    //var change = false;
-    if (JSON.stringify(tempRecipe) != '{}') {
-      if (tempList.indexOf(tempRecipe) === -1) {
-        tempList.push(tempRecipe);
+    if (JSON.stringify(tempRecipe) != '{}'){
+        var tempList = savedRecipeList;
+        const oldList = JSON.parse(window.localStorage.getItem("savedList"));
+  
+        if (oldList != null) {
+          tempList = oldList;
+        }
+  
+        console.log(tempList.findIndex(f => f.title === tempRecipe.title));
+  
+        //if (JSON.stringify(tempRecipe) != '{}') {
+          if (tempList.findIndex(f => f.title === tempRecipe.title) === -1) {
+            tempList.push(tempRecipe);
+          }
+          else {
+            tempList.splice(tempList.findIndex(f => f.title === tempRecipe.title), 1);
+            setRecipeData(tempList);
+          }
+        //}
+  
+  
+  
+        tempList.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+      
+        setSavedRecipeData(tempList);
+        localStorage.setItem("savedList", JSON.stringify(tempList));
+        setCopyRecipe({});
       }
     }
 
 
-    console.log("UpdateSaveRecipe",tempList);
-    setSavedRecipeData(tempList);
-  }
+
 
   return (
     <>
       <div className="recipespace">
         {Object.keys(recipeData).map((recipeId) => (
-          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} />
+          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} savedRecipeToggle={props.savedRecipeToggle}/>
         ))}
       </div>
+      
+      {/*Pressing Add will display an Add Recipe Form*/ }
       <Box className="add_recipe_box">
-        <Fab color="primary" aria-label="add" className="add_recipe_icon">
+        <Fab 
+             color="primary"      
+             aria-label="add" 
+             className="add_recipe_icon"
+             onClick={handleOpen} 
+        >
           <AddIcon />
         </Fab>
-      </Box>
+      </Box>        
+      <AddRecipeForm open={open} handleClose={handleClose} setCopyRecipe={setCopyRecipe}/>      
     </>
   );
 };
 
 export default Recipespace;
-
-
-  /*
-  const getRecipeData = async() => {
-    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch
-                                  ?apiKey=${API_KEY}
-                                  &query=${props.searchTerm}`);
-    const data = await response.json();
-    setRecipeData(data.results);
-    console.log(data);
-    console.log(`https://api.spoonacular.com/recipes/complexSearch
-    ?apiKey=${API_KEY}
-    &addRecipeInformation=true
-    &addRecipeNutrition=true
-    &query=${props.searchTerm}`);                           
-  };
-  
-
-  function getRecipeData() {
-    fetch(`https://api.spoonacular.com/recipes/complexSearch
-                                  ?apiKey=${API_KEY}
-                                  &addRecipeInformation=true
-                                  &addRecipeNutrition=true
-                                  &query=${props.searchTerm}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setRecipeData(data);
-      console.log(data);
-    })
-    .catch(() => {
-      console.log("error");
-    });
-  }
- */

@@ -1,9 +1,10 @@
-import { React, useState } from "react";
+import { React, useState,useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import TimerIcon from "@mui/icons-material/Timer";
 import BoltTwoToneIcon from "@mui/icons-material/BoltTwoTone";
 import Box from '@mui/material/Box';
 import IconButton from "@mui/material/IconButton";
+import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from "@mui/material/Tooltip";
 //import RecipeView from "../recipeview/RecipeView"
@@ -57,28 +58,40 @@ function a11yProps(index) {
 const RecCard = (props) => {
   const { image, title, id, analyzedInstructions } = props.recipe;
   const ingredients = props.recipe.nutrition.ingredients;
-
+  const activebutton = props.savedRecipeToggle;
   const [viewRecipe, setViewRecipe] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [buttonType, setButtonType] = useState("Add Button");
+  //const [addsub, toggleAddSub] = useState("card_addbtn");
   /*const [copyRecipe, setCopyRecipe] = useState();*/
   
   const showModal = () => {
     setViewRecipe(!viewRecipe);
   }
 
+  let toolTip = ['Delete Recipe',"Add Recipe"];
+  
+
   const handleClose = () => {
     setViewRecipe(false);
   }
 
+  useEffect(() => {
+    if (activebutton){
+      setButtonType("Delete Recipe");
+    }
+    else{
+      setButtonType("Add Button");
+    }
+
+  }, [activebutton]);
 
   const handleCopyRecipe = () =>{
     //setViewRecipe(false);
     const temp = props.recipe;
     props.setCopyRecipe(temp);
-    console.log("RecipeCard:CopyRecipe = ",temp);
-
-    // save recipe
-    localStorage.setItem(props.recipe.id, JSON.stringify(props.recipe));
+    //props.updateSavedRecipes(temp);
+    //console.log("RecipeCard:CopyRecipe = ",temp);
   }
 
   const handleTabChange = (event, newValue) => {
@@ -91,9 +104,9 @@ const RecCard = (props) => {
     <div className="card">
       <div className="card__body">
         <img src={image} alt="" className="card__image" />
-        <Tooltip title="Add Recipe">
+        <Tooltip title={buttonType}>
           <IconButton className="card__addbtn" onClick={handleCopyRecipe}>
-            <AddIcon />
+            {activebutton ?  <DeleteIcon/> : <AddIcon />}
           </IconButton>
         </Tooltip>
         <div>
@@ -117,11 +130,6 @@ const RecCard = (props) => {
             </li>
           </ul>
         </div>
-        <li className="card__desc">
-          <span>
-            {/*props.recipe.summary*/}
-          </span>
-        </li>
       </div>
       <button className="card__btn"
         onClick={() => showModal()}> View Recipe
@@ -188,7 +196,7 @@ const RecCard = (props) => {
             Cancel
           </Button>
           <Button autoFocus onClick={handleCopyRecipe}>
-            Add Recipe
+            {buttonType}
           </Button>
         </DialogActions>
       </Dialog>
