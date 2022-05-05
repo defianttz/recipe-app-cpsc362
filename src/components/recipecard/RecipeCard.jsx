@@ -5,6 +5,7 @@ import BoltTwoToneIcon from "@mui/icons-material/BoltTwoTone";
 import Box from '@mui/material/Box';
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from "@mui/material/Tooltip";
 //import RecipeView from "../recipeview/RecipeView"
@@ -67,10 +68,7 @@ const RecCard = (props) => {
   
   const showModal = () => {
     setViewRecipe(!viewRecipe);
-  }
-
-  let toolTip = ['Delete Recipe',"Add Recipe"];
-  
+  } 
 
   const handleClose = () => {
     setViewRecipe(false);
@@ -104,11 +102,31 @@ const RecCard = (props) => {
     <div className="card">
       <div className="card__body">
         <img src={image} alt="" className="card__image" />
+        <div>
         <Tooltip title={buttonType}>
-          <IconButton className="card__addbtn" onClick={handleCopyRecipe}>
+          <IconButton  onClick={handleCopyRecipe}
+          sx={{
+              color:"#ffffff",
+              background:"#5651e5",
+              boxShadow: "0px 5px 30px 1px #5651e5",
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              fontSize: "large",
+              justifyContent: "top",
+              left: "85%",
+              fontWeight: "bold",
+              marginTop: "-50px",
+              maxHeight: "30px",
+              "&:hover":{
+                background: "#352efa",
+                color: "white"
+              }
+            }}>
             {activebutton ?  <DeleteIcon/> : <AddIcon />}
           </IconButton>
         </Tooltip>
+        </div>
         <div>
           <h3 className="card__title"> {title} </h3>
           <ul>
@@ -125,6 +143,14 @@ const RecCard = (props) => {
                 <span>
                   {" "}
                   <BoltTwoToneIcon /> {Math.ceil(props.recipe.nutrition.nutrients[0].amount)} cal{" "}
+                </span>
+              </Tooltip>
+            </li>
+            <li className="card__servingicon">
+              <Tooltip title="Servings">
+                <span>
+                  {" "}
+                  <PeopleAltIcon/> {props.recipe.servings} {" "}
                 </span>
               </Tooltip>
             </li>
@@ -192,10 +218,26 @@ const RecCard = (props) => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleClose}
+          sx={{
+                color:"#5651e5",
+                background:"#ffffff",
+                "&:hover":{
+                  background: "#5651e5",
+                  color: "white"
+                }
+              }}>
             Cancel
           </Button>
-          <Button autoFocus onClick={handleCopyRecipe}>
+          <Button autoFocus onClick={handleCopyRecipe}
+          sx={{
+                color:"#5651e5",
+                background:"#ffffff",
+                "&:hover":{
+                  background: "#5651e5",
+                  color: "white"
+                }
+              }}>
             {buttonType}
           </Button>
         </DialogActions>

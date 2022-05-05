@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     background-color: #f8f8f8;
-    position:fixed;
+    position:relative;
     justify-content: space-between;
     bottom: 0;
     height: 1rem;

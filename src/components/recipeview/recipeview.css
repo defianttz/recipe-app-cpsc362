@@ -14,9 +14,9 @@
     font-size: 1em;
   }  
   .view__image {
-    height: 12rem;
+    height: 100%;
     width: 100%;
-        object-fit: contain;
+    object-fit: scale-down;
   }
   
   .view__ingr li{

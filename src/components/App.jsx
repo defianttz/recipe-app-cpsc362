@@ -35,7 +35,6 @@ function App() {
               savedRecipeToggle={savedRecipeToggle}/>
       <Recipespace searchTerm={searchTerm} setSavedRecipeToggle = {setSavedRecipeToggle} 
                    savedRecipeToggle={savedRecipeToggle}/>
-      
       {/*<Footer />*/}
     </ThemeProvider>
   );

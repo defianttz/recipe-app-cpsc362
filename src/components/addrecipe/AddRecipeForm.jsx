@@ -38,44 +38,11 @@ const AddRecipeForm = (props) => {
     notes: [],    // onChange
     nutrition: [], // handleSave
     analyzedInstructions: [], // handleSave 
-  }); 
-  /*
-  const [recipe, setRecipe] = React.useState({
-    id: "999",                  
-    title: "", 
-    readyInMinutes: "",
-    image: "",
-    servings: "",
-    notes: [],    
-    nutrition:{
-      ingredients: mockdingredients,
-      nutrients:[{
-        name: "Calories",
-        amount: "",
-        unit: "kcal"
-      }],     
-    },
-    analyzedInstructions:mockdinstructions,
-   
-  });  */
+  });   
 
-const [temprecipe, setTempRecipe] = React.useState({
-            id: "",                   // recipe.id
-            title: "",                // recipe.title
-            ingredients: [],          // recipe.nutrition.ingredients
-            analyzedInstructions: [], // recipe.analyzedInstructions
-            readyInMinutes: "",       // recipe.readyInMinutes
-            image: "",                // recipe.image
-            nutrition:[],             // recipe.nutrition.nutrients[0].amount
-            servings: "",             // recipe.servings
-            notes: []                 // recipe.notes <--- New
-            });
 
 function handleSave() {
-    
-  //setNutrition({...nutritionz, ingredients: mockdingredients});
-  //setNutrition({...nutritionz, nutrients: nutrientz});
-
+  
   nutritionz.ingredients = mockdingredients;
   nutritionz.nutrients = [
                           nutrientz,
@@ -85,9 +52,8 @@ function handleSave() {
                               "unit": "g",
                               "percentOfDailyNeeds": 0
                           },  
-                        ]
-  
-  //console.log(nutritionz);
+                        ];
+    
   
   recipe.nutrition = nutritionz;
   recipe.analyzedInstructions =mockdinstructions;  
@@ -154,7 +120,7 @@ return(
               flexDirection: "column",
               m: "6",
               '& .MuiTextField-root': { minWidth: '40ch',
-                                        p: "12px 16px"},
+                                        p: "12px 5px"},
               width:"auto",
               minHeight: "300px",
               //p: "2",
@@ -164,6 +130,7 @@ return(
       <TextField
         required
         id="outlined-required"
+        variant="outlined"
         label="Recipe Name"
         value={recipe.title}
         onChange={handleNameChange}
@@ -186,7 +153,7 @@ return(
       />
     
       <TextField
-        id="outlined"
+        id="filled-basic"
         label="Servings"
         value={recipe.servings}
         onChange={(e) => setRecipe({ ...recipe, servings: e.target.value })}
@@ -230,10 +197,26 @@ return(
     </DialogContent>        
     {/* Footer Button Group*/}
     <DialogActions>
-      <Button autoFocus onClick={props.handleClose}>
+      <Button autoFocus onClick={props.handleClose}
+              sx={{
+                color:"#5651e5",
+                background:"#ffffff",
+                "&:hover":{
+                  background: "#5651e5",
+                  color: "white"
+              }
+              }}>
         Cancel
       </Button>
-      <Button autoFocus onClick={handleSave}>
+      <Button autoFocus onClick={handleSave}
+      sx={{
+                color:"#5651e5",
+                background:"#ffffff",
+                "&:hover":{
+                  background: "#5651e5",
+                  color: "white"
+                }
+              }}>
         Save Recipe
       </Button>
     </DialogActions>
