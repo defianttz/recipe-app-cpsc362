@@ -14,7 +14,7 @@ import AddRecipeForm from "../addrecipe/AddRecipeForm";
  
 const Recipespace = (props) => {
 
-  const API_KEY = "API_KEY_HERE";
+  const API_KEY = "APP KEY HERE";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
@@ -122,7 +122,7 @@ const Recipespace = (props) => {
     <>
       <div className="recipespace">
         {Object.keys(recipeData).map((recipeId) => (
-          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} />
+          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} savedRecipeToggle={props.savedRecipeToggle}/>
         ))}
       </div>
       
