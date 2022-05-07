@@ -5,8 +5,16 @@ import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import { Link, useLocation } from "react-router-dom"
 
 import "./Navbar.css";
+import { Button } from "@mui/material";
+
+
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -55,8 +63,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
-  const [toggle, setToggle] = useState(true);
+  const [togglecolor, setToggleColor] = useState("primary");
+  const [alignment, setAlignment] = useState('home');
+  
 
+  const handleChange = (event, newAlignment) => {
+    if(newAlignment !== null)
+    setAlignment(newAlignment);
+  }; 
+  
+  
   const initiateSearch = (e) => {
     if (e.key === "Enter") {
       setSearchTerm(e.target.value); // Remove?
@@ -84,13 +100,43 @@ const Navbar = (props) => {
 
   }
 
+  const togglehome = () =>{
+    console.log("Navbar:RecipeToggle pressed", props.savedRecipeToggle);
+    props.setSavedRecipeToggle(false);
+    setToggleColor("primary")
+
+  }
+  const togglerecipe = () =>{
+    console.log("Navbar:RecipeToggle pressed", props.savedRecipeToggle);
+    props.setSavedRecipeToggle(true);
+
+  }
+
+  
+  const links = [
+    {
+        name: "Home",
+        path: "/",
+        toggle: false,
+        //icon: faHome
+    },
+    {
+        name: "Recipes",
+        path: "/recipes",
+        toggle: true,
+       
+        //icon: faList
+    }
+    
+]
+
   return (
     <>
       <div className="navbar">
         {/*<div className="container">*/}
           <h1>
             <span>
-              <DiningSharpIcon className="icon" /> Recipe App{" "}
+              <DiningSharpIcon className="icon" /> The Fifth Spoon{" "}
             </span>{" "}
           </h1>
           <Search>
@@ -106,11 +152,43 @@ const Navbar = (props) => {
               //onKeyPress={initiateSearch}
             />
           </Search>
-          <button onClick={(handleRecipeToggle)}>
-          My Recipes
-          </button>
-          {/*<h5><span> My Recipes <MenuBookTwoToneIcon/></span></h5>*/}
-
+          
+          <ToggleButtonGroup
+           
+            value={alignment}
+            exclusive
+            onChange={handleChange}
+            sx={{  color: "#3531be",
+                  borderBottomColor:"#3531be",
+                  fontWeight: "bold",
+                  background: "white",
+                  fontFamily: "Roboto Mono",                  
+                ".css-1do4wx1-MuiButtonBase-root-MuiToggleButton-root":{
+                  color: "black"
+                },
+                ".css-x67mov-MuiButtonBase-root-MuiToggleButton-root.Mui-selected":{
+                  color: "white",
+                  background: "#5651e5"
+                }
+              }}
+          >
+            <ToggleButton value="home" onClick={togglehome}
+            sx={
+              {color:"#808080",
+                "&:hover":{
+                  //background: "red",
+                  color: "#3531be",
+                  borderBottomColor:"#3531be",
+                  fontWeight: "bold",
+                }}}>Home</ToggleButton>
+            <ToggleButton value="My Recipes" onClick={togglerecipe}
+             sx={{color:"#808080","&:hover":{
+                  //background: "red",
+                  color: "#3531be",
+                  borderBottomColor:"#3531be",
+                  fontWeight: "bold",
+                }}}>My Recipes</ToggleButton>
+          </ToggleButtonGroup>
         {/*</div>*/}
       </div>
     </>
@@ -118,3 +196,54 @@ const Navbar = (props) => {
 };
 
 export default Navbar;
+
+/*  <button onClick={(handleRecipeToggle)}>
+          My Recipes
+          </button> <h6><span> My Recipes <MenuBookTwoToneIcon/></span></h6>
+          
+          
+          <div className="nav-links">
+            {links.map(link => (
+              <Link className={location.pathname === link.path ? "active" : ""} to={link.path} key={link.name}>{link.name}</Link>
+            ))}
+
+          </div>
+          
+          
+          {links.map(link => (
+              <Button key={link.name}
+               onClick={props.setSavedRecipeToggle(link.toggle)}
+              >{link.name}</Button>
+            ))}
+          </div>
+          
+          
+          <div className="nav-links">        
+          
+          
+          <Link to="/" sx={{textDecoration: "none"}}>
+            <Button onClick={togglehome} 
+            sx={{
+              color:togglecolor,
+              ':before':{
+                borderBottomColor: 'blue'
+              },
+              ':after': { borderBottomColor: 'red' }
+            }}>
+            Home
+            </Button>
+            </Link>
+            <Link to="/" sx={{textDecoration: "none"}}>
+            <Button onClick={togglerecipe} >
+            Recipes
+            </Button>
+            </Link>
+            </div> 
+          
+          
+          
+          
+          
+          
+          
+          */

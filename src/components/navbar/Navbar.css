@@ -10,13 +10,15 @@
     z-index: 900;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding: 1rem;
 
     
   }
-
+  a{
+    text-decoration: none;
+  }
 
 /*
   .navbar .container {
@@ -50,9 +52,7 @@
     flex-direction: row;
     margin-left: 0;
     width: 100%;
-  }
-  
-  
+  }  
   
   .navbar span {
     color: #352efa;
@@ -79,34 +79,41 @@
     color: #5651e5;
     
   }
-  .nav-links a{
+  .navbar .nav-links a{
     margin-left: 1em;
-    color: inherit;
-    letter-spacing: 2px;
+    color: #5651e5;
+    letter-spacing: 4px;
     text-transform: uppercase;
     position: relative;
     font-size: 14px;
   
   }
-  .nav-links a::before{
+  .navbar .nav-links a.active{
+    color: #5651e5;
+    font-weight: bold;
+  }
+
+  .navbar .nav-links a:hover{
+    border-bottom: 2px solid #5651e5;
+    transition: margin-right .2s ease-in-out;
+  }
+
+  .navbar .nav-links a::before{
     content:'';
     display: inline-block;
     height: 3px;
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: #5651e5;
     position: absolute;
     bottom: -5px;
     left: 0;
-    transform: scaleX(0);
-    transition: getAnimationDuration(.2s) ease-in-out;
+    transform: scaleX(0);    
   }
-  .nav-links a::active{
-    color: #5651e5;
-    font-weight: bold;
-  }
-  .nav_links a::hover::before
+  
+  .navbar .nav_links a:hover::before
   {
     transform: scaleX(1);
+    
   }
     
   @media screen and (max-width: 940px) {
@@ -151,5 +158,6 @@
     border: 0;
     background-color: transparent;
   }
+
   
   
