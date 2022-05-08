@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Recipe-App/static/css/main.d3cc9848.css",
+    "main.js": "/Recipe-App/static/js/main.cfdc69b1.js",
+    "static/media/The Fifth Spoon-1080.jpg": "/Recipe-App/static/media/The Fifth Spoon-1080.81d1217388b3b84adec0.jpg",
+    "static/media/The Fifth Spoon - SkullBones.jpg": "/Recipe-App/static/media/The Fifth Spoon - SkullBones.0b94cc903178d5795aec.jpg",
+    "index.html": "/Recipe-App/index.html",
+    "main.d3cc9848.css.map": "/Recipe-App/static/css/main.d3cc9848.css.map",
+    "main.cfdc69b1.js.map": "/Recipe-App/static/js/main.cfdc69b1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3cc9848.css",
+    "static/js/main.cfdc69b1.js"
+  ]
+}
