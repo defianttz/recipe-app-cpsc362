@@ -10,7 +10,7 @@ import AddRecipeForm from "../addrecipe/AddRecipeForm";
  
 const Recipespace = (props) => {
 
-  const API_KEY = "APP KEY HERE";
+  const API_KEY = "3b86538a99f049e0b87b85328b391b86";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
