@@ -5,12 +5,8 @@ import axios from "axios";
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import Dialog from "@mui/material/Dialog";
 import AddRecipeForm from "../addrecipe/AddRecipeForm";
-//import RecipeCard from "../recipecard/RecipeCard";
-//import RecipeInfoCard from "../recipeinfo/RecipeInfoCard";
+
  
 const Recipespace = (props) => {
 
@@ -115,17 +111,21 @@ const Recipespace = (props) => {
       }
     }
 
-
-
-
   return (
     <>
       <div className="recipespace">
-        {Object.keys(recipeData).map((recipeId) => (
+        {recipeData?.length ? ( 
+          Object.keys(recipeData).map((recipeId) => (
           <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} savedRecipeToggle={props.savedRecipeToggle}/>
-        ))}
-      </div>
-      
+        ))):
+        (
+        <div className="placeholder-container">
+          <img className="placeholder" src="/img/TheFifthSpoon-white.jpg" alt="white spoon"/>
+        </div>
+        )
+
+        }
+      </div>      
       {/*Pressing Add will display an Add Recipe Form*/ }
       <Box className="add_recipe_box">
         <Fab 
@@ -143,3 +143,36 @@ const Recipespace = (props) => {
 };
 
 export default Recipespace;
+
+
+/*
+
+<div className="recipespace">
+        {recipeData?.length ? ( 
+          Object.keys(recipeData).map((recipeId) => (
+          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} savedRecipeToggle={props.savedRecipeToggle}/>
+        ))):
+        (
+          <img className="placeholder" src="/img/TheFifthSpoon-white.jpg" alt="white spoon"/>
+        )
+
+        }
+      </div>
+      
+      
+      <Box className="add_recipe_box">
+        <Fab 
+             color="primary"      
+             aria-label="add" 
+             className="add_recipe_icon"
+             onClick={handleOpen} 
+        >
+          <AddIcon />
+        </Fab>
+      </Box>        
+      <AddRecipeForm open={open} handleClose={handleClose} setCopyRecipe={setCopyRecipe}/>      
+    </>
+  );
+
+
+*/

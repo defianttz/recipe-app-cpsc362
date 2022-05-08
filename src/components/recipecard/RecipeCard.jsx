@@ -63,8 +63,6 @@ const RecCard = (props) => {
   const [viewRecipe, setViewRecipe] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [buttonType, setButtonType] = useState("Add Button");
-  //const [addsub, toggleAddSub] = useState("card_addbtn");
-  /*const [copyRecipe, setCopyRecipe] = useState();*/
   
   const showModal = () => {
     setViewRecipe(!viewRecipe);
@@ -192,6 +190,7 @@ const RecCard = (props) => {
             }}
           >
             <img src={image} alt="" className="view__image" />
+            
             <Box sx={{ width: '400px', height: '400px' }}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider', marginLeft: 5 }}>
                 <Tabs value={activeTab} onChange={handleTabChange} aria-label="basic tabs example">

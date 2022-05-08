@@ -94,6 +94,7 @@
     background: #5651e5;
     color: white;
   }
+  
   .recipespace {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
