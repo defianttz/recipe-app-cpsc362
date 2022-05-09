@@ -10,7 +10,7 @@ import AddRecipeForm from "../addrecipe/AddRecipeForm";
  
 const Recipespace = (props) => {
 
-  const API_KEY = "3b86538a99f049e0b87b85328b391b86";
+  const API_KEY = "APP KEY HERE";
 
   const [recipeData, setRecipeData] = useState([]);
   const [searchedRecipeList, setSearchedRecipeList] = useState([]);
@@ -114,18 +114,11 @@ const Recipespace = (props) => {
   return (
     <>
       <div className="recipespace">
-        {recipeData?.length ? ( 
-          Object.keys(recipeData).map((recipeId) => (
+        {Object.keys(recipeData).map((recipeId) => (
           <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} savedRecipeToggle={props.savedRecipeToggle}/>
-        ))):
-        (
-        <div className="placeholder-container">
-          <img className="placeholder" src="/img/TheFifthSpoon-white.jpg" alt="white spoon"/>
-        </div>
-        )
-
-        }
-      </div>      
+        ))}
+      </div>
+      
       {/*Pressing Add will display an Add Recipe Form*/ }
       <Box className="add_recipe_box">
         <Fab 
@@ -146,6 +139,20 @@ export default Recipespace;
 
 
 /*
+
+<div className="recipespace">
+        {recipeData.length ? ( 
+          Object.keys(recipeData).map((recipeId) => (
+          <RecipeCard key={recipeId} recipe={recipeData[recipeId]} setCopyRecipe={setCopyRecipe} savedRecipeToggle={props.savedRecipeToggle}/>
+        ))):
+        (
+        <div className="placeholder-container">
+          <img className="placeholder" src="/img/TheFifthSpoon-white.jpg" alt="white spoon"/>
+        </div>
+        )
+
+        }
+      </div>
 
 <div className="recipespace">
         {recipeData?.length ? ( 

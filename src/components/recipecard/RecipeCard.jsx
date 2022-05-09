@@ -93,6 +93,10 @@ const RecCard = (props) => {
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   }
+  const handleAddRecipeButton = () =>{
+    handleClose();
+    handleCopyRecipe();
+  }
 
   //console.log(props.recipe);
   //console.log(analyzedInstructions.length);
@@ -228,7 +232,7 @@ const RecCard = (props) => {
               }}>
             Cancel
           </Button>
-          <Button autoFocus onClick={handleCopyRecipe}
+          <Button autoFocus onClick={handleAddRecipeButton}
           sx={{
                 color:"#5651e5",
                 background:"#ffffff",
